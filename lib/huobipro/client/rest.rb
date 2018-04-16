@@ -42,7 +42,6 @@ module Huobipro
         }
         h = h.merge(params) if request_method == "GET"
         data = "#{request_method}\napi.huobipro.com\n#{path}\n#{Rack::Utils.build_query(hash_sort(h))}"
-        puts data
         h["Signature"] = sign(data)
         url = "https://api.huobipro.com#{path}?#{Rack::Utils.build_query(h)}"
         http = Net::HTTP.new(@uri.host, @uri.port)
