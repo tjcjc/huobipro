@@ -1,12 +1,11 @@
-require 'httparty'
-require 'json'
-require 'open-uri'
 require 'rack'
 require 'digest/md5'
 require 'base64'
+require "faraday"
 
 require_relative 'rest/endpoints'
 require_relative 'rest/methods'
+require_relative 'rest/clients'
 
 module Huobipro
   module Client
@@ -17,40 +16,35 @@ module Huobipro
         @access_key = access_key
         @secret_key = secret_key
         @signature_version = signature_version
-        @uri = URI.parse BASE_URL
-        @header = {
-          'Content-Type'=> 'application/json',
-          'Accept' => 'application/json',
-          'Accept-Language' => 'zh-CN',
-          'User-Agent'=> 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36'
-        }
+        adapter = Faraday.default_adapter
+        @clients = {}
+        @clients[:public]   = public_client adapter
       end
 
       METHODS.each do |method|
         define_method(method[:name]) do |options = {}|
-          send_request(method[:action], ENDPOINTS[method[:endpoint]], options)
+          client = @clients[method[:client]]
+          response = client.send(method[:action]) do |req|
+            sign_request(req, ENDPOINTS[method[:endpoint]], options)
+            req.params.merge! options
+          end
+          response.body
         end
       end
 
       private
-      def send_request(request_method, path, params)
+      def sign_request(request, path, params)
         h =  {
           "AccessKeyId"=>@access_key,
           "SignatureMethod"=>"HmacSHA256",
           "SignatureVersion"=>@signature_version,
           "Timestamp"=> Time.now.getutc.strftime("%Y-%m-%dT%H:%M:%S")
         }
-        h = h.merge(params) if request_method == "GET"
+        h = h.merge(params) if request.method == :get
+        request_method = request.method == :get ? "GET" : "POST"
         data = "#{request_method}\napi.huobipro.com\n#{path}\n#{Rack::Utils.build_query(hash_sort(h))}"
         h["Signature"] = sign(data)
-        url = "https://api.huobipro.com#{path}?#{Rack::Utils.build_query(h)}"
-        http = Net::HTTP.new(@uri.host, @uri.port)
-        http.use_ssl = true
-        begin
-          JSON.parse http.send_request(request_method, url, JSON.dump(params),@header).body
-        rescue Exception => e
-          {"message" => 'error' ,"request_error" => e.message}
-        end
+        request.url "https://api.huobipro.com#{path}?#{Rack::Utils.build_query(h)}"
       end
 
       def sign(data)

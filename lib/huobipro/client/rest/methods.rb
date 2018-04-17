@@ -5,24 +5,24 @@ module Huobipro
       METHODS = [
         # Public API Methods
         # #ping
-        { name: :currencys, client: :signed,
-          action: "GET", endpoint: :currencys },
+        { name: :currencys, client: :public,
+          action: :get, endpoint: :currencys },
         { name: :symbols, client: :public,
-          action: "GET", endpoint: :symbols },
+          action: :get, endpoint: :symbols },
         { name: :depth, client: :public,
-          action: "GET", endpoint: :depth },
+          action: :get, endpoint: :depth },
         { name: :history_kline, client: :public,
-          action: "GET", endpoint: :history_kline },
+          action: :get, endpoint: :history_kline },
         { name: :merged, client: :public,
-          action: "GET", endpoint: :merged },
+          action: :get, endpoint: :merged },
         { name: :market_trade, client: :public,
-          action: "GET", endpoint: :market_trade },
+          action: :get, endpoint: :market_trade },
         { name: :trade_detail, client: :public,
-          action: "GET", endpoint: :trade_detail },
+          action: :get, endpoint: :trade_detail },
         { name: :history_trade, client: :public,
-          action: "GET", endpoint: :history_trade },
+          action: :get, endpoint: :history_trade },
         { name: :market_detail, client: :public,
-          action: "GET", endpoint: :market_detail }
+          action: :get, endpoint: :market_detail }
         # # #agg_trades
         # { name: :agg_trades, client: :public,
         #   action: :get, endpoint: :agg_trades },
