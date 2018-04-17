@@ -4,15 +4,19 @@ module Huobipro
     class REST
       ENDPOINTS = {
         # Public API Endpoints
+        # 独有的
         currencys: "/v1/common/currencys",
         symbols: "/v1/common/symbols",
-        ping:              '/market/depth',
-        history_kline:              '/market/history/kline',
+        trade:             '/market/trade',
+
+        # 共有的
+        depth:              '/market/depth',
+        history_trade:            '/market/history/trade',
+        day_trade: '/market/detail'
+        klines:              '/market/history/kline',
+
         merged:     '/market/detail/merged',
         market_trade:          '/market/depth',
-        trade_detail:             '/market/trade',
-        history_trade:            '/market/history/trade',
-        market_detail: '/market/detail'
         # agg_trades:        'v1/aggTrades',
         # klines:            'v1/klines',
         # twenty_four_hour:  'v1/ticker/24hr',

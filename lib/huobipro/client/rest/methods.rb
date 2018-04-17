@@ -5,24 +5,27 @@ module Huobipro
       METHODS = [
         # Public API Methods
         # #ping
-        { name: :currencys, client: :public,
-          action: :get, endpoint: :currencys },
-        { name: :symbols, client: :public,
-          action: :get, endpoint: :symbols },
         { name: :depth, client: :public,
           action: :get, endpoint: :depth },
-        { name: :history_kline, client: :public,
-          action: :get, endpoint: :history_kline },
-        { name: :merged, client: :public,
-          action: :get, endpoint: :merged },
-        { name: :market_trade, client: :public,
-          action: :get, endpoint: :market_trade },
-        { name: :trade_detail, client: :public,
-          action: :get, endpoint: :trade_detail },
         { name: :history_trade, client: :public,
           action: :get, endpoint: :history_trade },
-        { name: :market_detail, client: :public,
-          action: :get, endpoint: :market_detail }
+        { name: :day_trade, client: :public,
+          action: :get, endpoint: :day_trade },
+        { name: :klines, client: :public,
+          action: :get, endpoint: :klines },
+
+        # { name: :currencys, client: :public,
+        #   action: :get, endpoint: :currencys },
+        # { name: :symbols, client: :public,
+        #   action: :get, endpoint: :symbols },
+        # { name: :history_kline, client: :public,
+        #   action: :get, endpoint: :history_kline },
+        # { name: :merged, client: :public,
+        #   action: :get, endpoint: :merged },
+        # { name: :trade_detail, client: :public,
+        #   action: :get, endpoint: :trade_detail },
+        # { name: :market_detail, client: :public,
+        #   action: :get, endpoint: :market_detail }
         # # #agg_trades
         # { name: :agg_trades, client: :public,
         #   action: :get, endpoint: :agg_trades },
