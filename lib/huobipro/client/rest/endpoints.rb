@@ -12,7 +12,7 @@ module Huobipro
         # 共有的
         depth:              '/market/depth',
         history_trade:            '/market/history/trade',
-        day_trade: '/market/detail'
+        day_trade: '/market/detail',
         klines:              '/market/history/kline',
 
         merged:     '/market/detail/merged',

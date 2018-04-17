@@ -52,7 +52,7 @@ module Huobipro
       end
 
       def hash_sort(ha)
-        Hash[ha.sort_by{|key, val|key}]
+        Hash[ha.sort_by{|key, val|key.to_s}]
       end
     end
   end
