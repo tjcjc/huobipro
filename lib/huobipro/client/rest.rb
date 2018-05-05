@@ -12,13 +12,13 @@ module Huobipro
     class REST
       BASE_URL = 'https://api.huobipro.com/'.freeze
 
-      def initialize(access_key: '', secret_key: '', signature_version: '')
+      def initialize(access_key: '', secret_key: '', signature_version: '', proxy: nil)
         @access_key = access_key
         @secret_key = secret_key
         @signature_version = signature_version
         adapter = Faraday.default_adapter
         @clients = {}
-        @clients[:public]   = public_client adapter
+        @clients[:public]   = public_client(adapter, proxy)
       end
 
       METHODS.each do |method|

@@ -27,4 +27,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'faraday', '~> 0.12'
   spec.add_runtime_dependency 'faraday_middleware', '~> 0.12'
+  spec.add_runtime_dependency 'em-http-request', '~> 1.1.5'
 end
